@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>home</title>
+<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+</head>
+<body bgcolor="#E8E8E8">
+<a href="register.html">Register</a></br>
+<select id="searchType">
+  <option value="Teach">Teach</option>
+  <option value="Learn">Learn</option>
+</select>
+<input type="text" name="search" id="searchKey" placeholder="search" required>
+  <input type="submit" value="SEARCH" id="search">
+  <div id="result"></div>
+  <script>
+  $( "#search" ).click(function() {
+	 var searchType = $( "#searchType" ).val();
+	 var searchKey = $( "#searchKey" ).val();
+	 var uri="/App/rest/UserService/users?searchType="+searchType+"&searchKey="+searchKey;
+	 console.log(uri);
+	   $.get( uri, function( data ) { 
+		   var divdata="";
+		   $.each(data, function( index, value ) {
+			   divdata=divdata + '</br>' + '<div style="padding: 2.5px 5px 2.5px 5px;"> name: ' + value.name + '</br>' + 'email:' + value.email + '</br>' + 'topic:' + value.topic + '</br>' + 'type:' + value.type  + '</div></br>';
+			 });
+	   $( "#result" ).html(divdata);
+		 });
+	});
+</script>
+</body>
+</html>
