@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>home</title>
+<link rel="stylesheet" type="text/css" href="css.css">
+<link rel="stylesheet" type="text/css" href="w3.css">
+<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="bootstrap.min.js"></script>
+<script type="text/javascript" src="jquery.twbsPagination.min.js"></script>
+</head>
+<body class="w3-light-grey">
+<div style="width:100%" class="w3-container w3-white">
+<a href="register.html">Register</a><br>
+<select id="searchType">
+  <option value="Teach">Teach</option>
+  <option value="Learn">Learn</option>
+</select>
+<input type="text" name="search" id="searchKey" placeholder="search" required>
+  <input type="submit" value="SEARCH" id="search">
+  </div>
+<div class="w3-container w3-content w3-margin-top w3-white" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding" style="margin:0 -16px">
+  
+    <!-- Left Column -->
+    <div class="w3-container w3-third w3-content w3-margin">
+
+  </div>
+  
+  <div class="w3-container w3-twothird w3-content w3-margin">
+  <div id="result"></div>
+  <div>
+  <div id="page-content"></div>
+  </div> 
+<div><ul id="pagination-demo" class="pagination-sm"></ul></div>
+
+  </div>
+ 
+  </div>
+  </div>
+  
+  <script>
+  $( "#search" ).click(function() {
+	 var searchType = $( "#searchType" ).val();
+	 var searchKey = $( "#searchKey" ).val();
+	 var uri="/App/rest/UserService/users?searchType="+searchType+"&searchKey="+searchKey;
+	 console.log(uri);
+	   $.get( uri, function( data ) { 
+		   var divdata="";
+		   $.each(data, function( index, value ) {
+			   divdata=divdata + '</br>' + '<div style="padding: 1px 5px 0px 5px;"> name: ' + value.name + '</br>' + 'email:' + value.email + '</br>' + 'topic:' + value.topic + '</br>' + 'type:' + value.type  + '</div></br>';
+			 });
+	   $( "#result" ).html(divdata);
+		 });
+	   var url="/App/rest/UserService/count?searchType="+searchType+"&searchKey="+searchKey;
+	   var link=0;
+	   
+	   $('#pagination-demo').twbsPagination({
+	        totalPages: 10,
+	        visiblePages: 7,
+	        onPageClick: function (event, page) {
+	            $('#page-content').text('Page ' + page);
+	        }
+	    });
+	   
+	   $.get( url, function( data ) { 
+		   var $pagination = $('pagination-demo');
+		   var defaultOpts = {
+			        totalPages: 20
+			    };
+		   $pagination.twbsPagination(defaultOpts);
+		   var totalPages = Number(data);
+           var currentPage = $pagination.twbsPagination('getCurrentPage');
+           $pagination.twbsPagination('destroy');
+           $pagination.twbsPagination($.extend({}, defaultOpts, {
+               startPage: currentPage,
+               totalPages: totalPages
+           }));
+		 });
+	   
+	   
+	   
+	   
+	   
+	});
+  
+  
+  
+</script>
+</body>
+</html>

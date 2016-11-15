@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>home</title>
+<link rel="stylesheet" type="text/css" href="css.css">
+<link rel="stylesheet" type="text/css" href="w3.css">
+<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+</head>
+<body class="w3-light-grey">
+<form action="/App/rest/UserService/register" method="post">
+<table align="center" width="400"> 
+<tr> 
+<th colspan="2" align="center"><h3>Registration</h3></th>
+</tr>
+
+<tr>
+<th align="left">Email ID: </th>
+<td align="left"><input type="email" name="email" placeholder="Enter Email" required /></td>
+</tr>
+<tr>
+<th align="left">Name :</th>
+<td align="left"><input type="text" name="name" placeholder="Enter Full Name" required/></td>
+</tr>
+<tr>
+<th align="left">Type :</th>
+<td align="left"><select required name="type">
+<option value="">select</option>
+  <option value="Teach">Teach</option>
+  <option value="Learn">Learn</option>
+</select></td>
+</tr>
+<tr>
+<th align="left">Topic :</th>
+<td align="left"><input type="text" name="topic" placeholder="Enter Topic" required/></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><input type="submit" name="button" value="Register" class="w3-btn w3-round"/> &nbsp;   <input type="reset" name="reset" value="Reset"   class="w3-btn w3-red w3-round"/>
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
